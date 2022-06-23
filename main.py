@@ -2,16 +2,26 @@ import pyautogui
 import keyboard
 import time
 
+# SETTINGS
 
-ore_icon1 = "dolivine.png" #Get Ore Icon
-ore_icon2 = "hadanite.png" #Get Ore Icon
-ores = [ore_icon1, ore_icon2]
-left_location = (400, 400) #TODO: Get window location of inventory
-right_location = (2000, 400) #TODO: Get window location of inventory
+# KEYBINDINGS
+MOVE_LEFT_KEY = 'm'
+MOVE_RIGHT_KEY = ','
+CANCEL_KEY = 'n'
 
+# OTHER
+SCREEN_SIZE = [2560, 1440]
 SLEEP = 0.1
 DELAY = 0.5
 CONFIDENCE = 0.9
+
+ore_icon1 = "dolivine.png"
+ore_icon2 = "hadanite.png"
+ores = [ore_icon1, ore_icon2]
+left_location = (SCREEN_SIZE[0]*0.15, 400) #TODO: Get window location of inventory
+right_location = (SCREEN_SIZE[0]*0.85, 400) #TODO: Get window location of inventory
+
+
 
 def isOreOnScreen(item_pic):
     return pyautogui.locateOnScreen(item_pic, confidence=CONFIDENCE, grayscale=True) is not None
@@ -45,26 +55,18 @@ def isOreInventoy(ore_location):
         return False
     
     
-    
-    
-    
 
-    
-
-
-
-# Wait for button to be clicked
 while True:
-    if keyboard.is_pressed("m"):
+    if keyboard.is_pressed(MOVE_LEFT_KEY):
         print("Macro Triggered!")
         loc = findOre()
-        while loc != False and not keyboard.is_pressed("n"):
+        while loc != False and not keyboard.is_pressed(CANCEL_KEY):
             moveOre(loc, True)
             loc = findOre() 
-    elif keyboard.is_pressed(","):
+    elif keyboard.is_pressed(MOVE_RIGHT_KEY):
         print("Macro Triggered!")
         loc = findOre()
-        while loc != False and not keyboard.is_pressed("n"):
+        while loc != False and not keyboard.is_pressed(CANCEL_KEY):
             moveOre(loc, False)
             time.sleep(SLEEP)
             loc = findOre() 
